@@ -1,0 +1,51 @@
+/* Buttons */
+.button {
+    margin: 10px 0;
+    padding:8px 40px;
+    border: none;
+	font-size:15px;
+    line-height: 15px;
+	font-weight: bold;
+    text-decoration:none;
+	color: $color-white;
+    cursor:pointer;
+    white-space:nowrap;
+    display: inline-block;
+
+    i { font-size: .6rem; }
+
+    &:active, &:link, &:visited {
+       color: $color-white;
+    }
+
+    &:hover { text-decoration: none; }
+
+    //Primary
+    &.-primary { background-color: $color-primary;
+        &:hover { background-color: lighten($color-primary, 10%); }
+
+        &.-border { border: 1px solid $color-primary; color: $color-primary; background: #fff;
+            &:hover { color: lighten($color-primary, 10%); border-color: lighten($color-primary, 10%); }
+        }
+    }
+
+    //Default
+    &.-default { background-color: $color-gray60;
+        &:hover { background-color: lighten($color-gray60, 10%); }
+
+        &.-border { border: 1px solid $color-gray60; color: $color-gray60; background: #fff;
+            &:hover { color: lighten($color-gray60, 10%); border-color: lighten($color-gray60, 10%); }
+        }
+    }
+
+    //Default Color
+    @extend .-default;
+
+    &.-disabled, &:disabled, &[disabled]  { opacity:.5; cursor:not-allowed; }
+
+
+    &.-small { padding: 5px 10px; font-size: 13px; line-height: 13px; }
+    &.-large { padding: 12px 65px; font-size: 15px; line-height: 15px; }
+    &.-full { width: auto; text-align: center; display: block; }
+
+}
