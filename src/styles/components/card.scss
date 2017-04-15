@@ -48,7 +48,7 @@
 }
 
 @keyframes flashValid {
-    0%   { box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75); }
+    0%   { box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);  }
     50%  { box-shadow: 0px 0px 8px 3px rgba($color-detail,1);}
     100% { box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75); }
 }
@@ -68,6 +68,6 @@
 @media (min-width: $screen-lg-min) {
   .card {
     margin: .5%;
-    width: 15.666%;
+    width: 11.5%;
   }
 }
