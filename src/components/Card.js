@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card= (props) => {
+const Card = (props) => {
   const { card, flipCard } = props;
   let cardClass = (card.flipped) ? 'card -flip': 'card';
 

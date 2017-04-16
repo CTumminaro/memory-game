@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import Card from './Card';
+import Header from './Header';
 
 import sampleData from '../sample-data';
 
@@ -33,7 +34,8 @@ class App extends React.Component {
     this.state = {
       cards: gameCards,
       flipCount: 0,
-      playable: true
+      playable: true,
+      attempts: 0
     };
   }
   checkMatch() {
@@ -75,6 +77,7 @@ class App extends React.Component {
       const card = _.find(cards, { id: id });
       let flipCount = this.state.flipCount + 1;
       let playable = true;
+      let attempts = this.state.attempts;
 
       card.flipped = true;
 
@@ -82,23 +85,27 @@ class App extends React.Component {
         this.checkMatch();
 
         playable = false;
+        attempts = attempts + 1;
         setTimeout(() => {
           this.nextTurn()
         }, 1300);
       }
 
       //update state
-      this.setState({ cards: cards, flipCount: flipCount, playable: playable });
+      this.setState({ cards: cards, flipCount: flipCount, playable: playable, attempts: attempts });
     }
   }
   render() {
     return(
-      <div className="container">
-        <div className="cards">
-          {
-            this.state.cards
-            .map(card => <Card key={card.id} card={card} flipCard={this.flipCard}   />)
-          }
+      <div>
+        <Header attempts={this.state.attempts} />
+        <div className="container">
+          <div className="cards">
+            {
+              this.state.cards
+              .map(card => <Card key={card.id} card={card} flipCard={this.flipCard}   />)
+            }
+          </div>
         </div>
       </div>
     )
