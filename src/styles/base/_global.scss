@@ -2,6 +2,7 @@ body { margin: 0; padding: 0; font-size: 14px; line-height: 1.2; color: $color-b
 
 a { color: $color-link; }
 img { @include img-responsive; }
+hr { margin: 40px 0; height: 1px; border: none; background: $color-gray60; }
 
 /* Structural */
 .container { margin: 0 auto; padding: 4% 20px; max-width: $max-width; @include clearfix; box-sizing: border-box; }

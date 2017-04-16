@@ -38,6 +38,28 @@ class App extends React.Component {
       attempts: 0
     };
   }
+  resetGame() {
+    let cards = [...this.state.cards];
+
+    cards.map((card) => {
+      Object.assign(card, {
+        flipped: false,
+        matched: false,
+        error: false
+      });
+
+      return card
+    });
+
+    //Flip Over
+    this.setState({ cards: cards, flipCount: 0, playable: false, attempts: 0 });
+
+    //Re-shuffle
+    cards = _.shuffle(cards);
+    setTimeout(() => {
+      this.setState({ cards: cards, playable: true});
+    }, 800);
+  }
   checkMatch() {
     const cards = [...this.state.cards];
 
@@ -106,6 +128,8 @@ class App extends React.Component {
               .map(card => <Card key={card.id} card={card} flipCard={this.flipCard}   />)
             }
           </div>
+          <hr />
+          <button className="button" onClick={() => { this.resetGame() }}>Reset</button>
         </div>
       </div>
     )
