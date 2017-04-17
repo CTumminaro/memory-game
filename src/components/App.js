@@ -102,6 +102,10 @@ class App extends React.Component {
       //copy state
       const cards = [...this.state.cards];
       const card = _.find(cards, { id: id });
+
+      //stop if card is already matched
+      if (card.matched) { return };
+
       let flipCount = this.state.flipCount + 1;
       let playable = true;
       let attempts = this.state.attempts;
