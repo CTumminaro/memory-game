@@ -12,9 +12,8 @@ class App extends React.Component {
 
     this.flipCard = this.flipCard.bind(this);
 
-    let gameCards = [];
-
-    sampleData.forEach((card) => {
+    const gameCards = _.chain(sampleData)
+    .reduce((memo, card) => {
       const id = card.id;
       const newId = id + 'a';
       const cardDefaults = {
@@ -24,11 +23,13 @@ class App extends React.Component {
         error: false
       };
 
-      gameCards.push(Object.assign({}, card, cardDefaults));
-      gameCards.push(Object.assign({}, card, cardDefaults, { id: newId }));
-    });
+      memo.push(Object.assign({}, card, cardDefaults));
+      memo.push(Object.assign({}, card, cardDefaults, { id: newId }));
+      return memo;
+    }, [])
+    .shuffle()
+    .value();
 
-    gameCards = _.shuffle(gameCards);
 
     //getinitialstate
     this.state = {
@@ -62,10 +63,14 @@ class App extends React.Component {
   }
   checkMatch() {
     const cards = [...this.state.cards];
-
     const matches = _.filter(cards, { flipped: true, matched: false });
-    const card1 = _.find(cards, {id: matches[0].id });
-    const card2 = _.find(cards, {id: matches[1].id });
+
+    if (matches.length < 2) {
+      throw('Not enough cards to match');
+    }
+
+    const card1 = matches[0];
+    const card2 = matches[1];
 
     if (card1.ref === card2.ref) {
       card1.matched = true;
@@ -118,15 +123,15 @@ class App extends React.Component {
     }
   }
   render() {
+    const cardHTML = this.state.cards
+    .map(card => <Card key={card.id} card={card} flipCard={this.flipCard} />);
+
     return(
       <div>
         <Header attempts={this.state.attempts} />
         <div className="container">
           <div className="cards">
-            {
-              this.state.cards
-              .map(card => <Card key={card.id} card={card} flipCard={this.flipCard}   />)
-            }
+            { cardHTML }
           </div>
           <hr />
           <button className="button" onClick={() => { this.resetGame() }}>Reset</button>
